@@ -173,6 +173,18 @@ and an async `execute` function. A Codex or PingClaw Desk bridge only needs to:
 No OpenAI-, Codex-, or PingClaw-specific dependency is present in the platform
 packages.
 
+### Local Codex installation
+
+The repository includes a stdio MCP entry point that maps the six tools above while preserving the mandatory prepare → confirm → publish flow:
+
+```bash
+pnpm install
+codex mcp add cordis-social -- \
+  /opt/homebrew/bin/pnpm --dir /absolute/path/to/cordis-social run mcp
+```
+
+The first `social_login` call opens an isolated local Edge/Chrome profile. Login state lives under `~/.cordis-social/profiles/x-default`; preview and published screenshots are stored under `~/.cordis-social/artifacts/x`. MCP stdout is reserved for protocol messages.
+
 ## Events
 
 The core augments Cordis with:

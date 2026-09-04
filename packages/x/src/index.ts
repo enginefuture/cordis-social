@@ -273,7 +273,10 @@ class XAdapter implements SocialPlatformAdapter {
       await lease.release();
     };
     try {
-      const auth = await contextAuthState(lease);
+      // A freshly opened persistent context can briefly report `unknown`
+      // while X restores its authenticated shell. Match authStatus behavior
+      // and wait for a conclusive DOM state before rejecting the draft.
+      const auth = await waitForAuthState(lease, this.config.statusTimeoutMs, signal);
       if (auth.state !== "authenticated") {
         throw new Error(`X account ${this.accountId} is not authenticated (${auth.state})`);
       }

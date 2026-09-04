@@ -85,6 +85,18 @@ X 插件只依赖抽象 `socialBrowser`，不会绑死某个指纹浏览器。
 宿主只需注册这些工具、传递 `AbortSignal`，并在发布前展示草稿和截图、获取明确确认。
 平台插件不依赖 OpenAI、Codex 或 PingClaw SDK。
 
+### 本地安装到 Codex
+
+仓库提供一个 stdio MCP 入口，它直接映射上述六个工具，并继续强制执行“准备草稿 → 人工确认 → 发布”的两阶段流程：
+
+```bash
+pnpm install
+codex mcp add cordis-social -- \
+  /opt/homebrew/bin/pnpm --dir /absolute/path/to/cordis-social run mcp
+```
+
+首次调用 `social_login` 时会打开独立的本地 Edge/Chrome profile，登录态保存在 `~/.cordis-social/profiles/x-default`。MCP 的 stdout 只用于协议消息，预览和发布截图保存在 `~/.cordis-social/artifacts/x`。
+
 当前 X 支持文字、最多四张图片、回复和引用。不会自动填写凭据、绕过 CAPTCHA、
 批量互动或无确认发布。
 
