@@ -123,29 +123,41 @@ function requireXTarget(value: string | undefined): string {
 }
 
 async function visibleComposer(page: Page): Promise<Locator> {
-  const composer = page.locator([
+  const selectors = [
     '[data-testid="tweetTextarea_0"]',
     'div[role="textbox"][contenteditable="true"][data-testid^="tweetTextarea"]',
-  ].join(", ")).filter({ visible: true }).first();
+  ];
+  const selector = selectors.join(", ");
+  const dialogComposer = page.locator(
+    selectors.map((candidate) => `[role="dialog"] ${candidate}`).join(", "),
+  ).filter({ visible: true }).first();
+  const composer = await dialogComposer.count() && await dialogComposer.isVisible().catch(() => false)
+    ? dialogComposer
+    : page.locator(selector).filter({ visible: true }).first();
   await composer.waitFor({ state: "visible", timeout: 30_000 });
   return composer;
 }
 
 async function visiblePostButton(page: Page): Promise<Locator> {
-  const button = page.locator([
+  const selectors = [
     'button[data-testid="tweetButton"]',
     'button[data-testid="tweetButtonInline"]',
-  ].join(", ")).filter({ visible: true }).first();
+  ];
+  const selector = selectors.join(", ");
+  const dialogButton = page.locator(
+    selectors.map((candidate) => `[role="dialog"] ${candidate}`).join(", "),
+  ).filter({ visible: true }).first();
+  const button = await dialogButton.count() && await dialogButton.isVisible().catch(() => false)
+    ? dialogButton
+    : page.locator(selector).filter({ visible: true }).first();
   await button.waitFor({ state: "visible", timeout: 30_000 });
-  await page.waitForFunction(() => {
-    const candidates = [...document.querySelectorAll<HTMLButtonElement>(
-      'button[data-testid="tweetButton"], button[data-testid="tweetButtonInline"]',
-    )];
-    return candidates.some((candidate) => candidate.offsetParent !== null
-      && !candidate.disabled
-      && candidate.getAttribute("aria-disabled") !== "true");
-  }, undefined, { timeout: 60_000 });
-  return button;
+  const deadline = Date.now() + 60_000;
+  while (Date.now() < deadline) {
+    if (await button.isEnabled().catch(() => false)
+      && await button.getAttribute("aria-disabled") !== "true") return button;
+    await page.waitForTimeout(250);
+  }
+  throw new Error("X post button did not become enabled within 60 seconds");
 }
 
 async function openComposer(page: Page, input: PreparePostInput): Promise<void> {
@@ -172,7 +184,11 @@ async function openComposer(page: Page, input: PreparePostInput): Promise<void> 
 async function fillPost(page: Page, input: PreparePostInput): Promise<Locator> {
   await openComposer(page, input);
   const composer = await visibleComposer(page);
-  await composer.click();
+  // X keeps a full-screen modal mask above the timeline. The reply editor is
+  // visibly inside the dialog but pointer hit-testing can still resolve to the
+  // mask, so focus the verified dialog editor directly instead of forcing a
+  // coordinate click through the overlay.
+  await composer.focus();
   await page.keyboard.insertText(input.text);
   const actual = (await composer.innerText()).trim();
   if (!actual || (!input.text.includes(actual) && !actual.includes(input.text))) {
