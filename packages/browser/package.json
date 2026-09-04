@@ -1,0 +1,20 @@
+{
+  "name": "cordis-plugin-social-browser",
+  "version": "0.1.0",
+  "description": "Browser-session service contract for Cordis social platform plugins",
+  "type": "module",
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": { ".": { "types": "./lib/index.d.ts", "default": "./lib/index.js" }, "./package.json": "./package.json" },
+  "files": ["lib", "README.md", "LICENSE"],
+  "scripts": { "build": "tsup src/index.ts --format esm --dts --clean --out-dir lib", "typecheck": "tsc --noEmit -p tsconfig.json" },
+  "keywords": ["cordis", "browser-automation", "playwright", "plugin"],
+  "repository": { "type": "git", "url": "git+https://github.com/enginefuture/cordis-social.git", "directory": "packages/browser" },
+  "homepage": "https://github.com/enginefuture/cordis-social#readme",
+  "bugs": "https://github.com/enginefuture/cordis-social/issues",
+  "publishConfig": { "access": "public" },
+  "peerDependencies": { "cordis": "4.0.0-rc.9", "playwright-core": ">=1.62.1" },
+  "devDependencies": { "cordis": "4.0.0-rc.9", "playwright-core": "^1.62.1", "tsup": "^8.5.0", "typescript": "^5.9.2" }
+}

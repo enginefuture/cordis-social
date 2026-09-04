@@ -1,0 +1,29 @@
+{
+  "name": "cordis-social-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "packageManager": "pnpm@9.15.3",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build": "pnpm -r --if-present build",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "test": "vitest run",
+    "test:real": "tsx scripts/local-browser-smoke.ts",
+    "check": "pnpm run typecheck && pnpm run test && pnpm run build",
+    "pack:check": "node scripts/package-smoke.mjs",
+    "example": "tsx examples/standalone/index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.1",
+    "cordis": "4.0.0-rc.9",
+    "playwright-core": "^1.62.1",
+    "profilefleet": "https://github.com/enginefuture/profilefleet/releases/download/v0.1.0/profilefleet-0.1.0.tgz",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4",
+    "zod": "^4.1.11"
+  }
+}

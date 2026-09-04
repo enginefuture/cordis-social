@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2024",
+    "lib": ["ES2024", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "sourceMap": true,
+    "noEmit": true,
+    "types": ["node", "vitest/globals"],
+    "baseUrl": ".",
+    "paths": {
+      "cordis-plugin-social": ["packages/core/src/index.ts"],
+      "cordis-plugin-social-browser": ["packages/browser/src/index.ts"],
+      "cordis-plugin-social-browser-local": ["packages/local-browser/src/index.ts"],
+      "cordis-plugin-social-profilefleet": ["packages/profilefleet/src/index.ts"],
+      "cordis-plugin-social-x": ["packages/x/src/index.ts"],
+      "cordis-plugin-social-tools": ["packages/tools/src/index.ts"]
+    }
+  },
+  "include": ["packages", "examples", "scripts", "vitest.config.ts"]
+}

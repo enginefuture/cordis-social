@@ -1,0 +1,22 @@
+{
+  "name": "cordis-plugin-social",
+  "version": "0.1.0",
+  "description": "Cordis service for lifecycle-safe, multi-platform social operations",
+  "type": "module",
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": { ".": { "types": "./lib/index.d.ts", "default": "./lib/index.js" }, "./package.json": "./package.json" },
+  "files": ["lib", "README.md", "LICENSE"],
+  "scripts": { "build": "tsup src/index.ts --format esm --dts --clean --out-dir lib", "typecheck": "tsc --noEmit -p tsconfig.json" },
+  "keywords": ["cordis", "social-media", "plugin", "service"],
+  "repository": { "type": "git", "url": "git+https://github.com/enginefuture/cordis-social.git", "directory": "packages/core" },
+  "homepage": "https://github.com/enginefuture/cordis-social#readme",
+  "bugs": "https://github.com/enginefuture/cordis-social/issues",
+  "publishConfig": { "access": "public" },
+  "cordis": { "description": { "en": "Social operation service", "zh": "社交平台操作服务" } },
+  "peerDependencies": { "cordis": "4.0.0-rc.9" },
+  "dependencies": { "zod": "^4.1.11" },
+  "devDependencies": { "cordis": "4.0.0-rc.9", "tsup": "^8.5.0", "typescript": "^5.9.2" }
+}

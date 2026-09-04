@@ -1,0 +1,22 @@
+{
+  "name": "cordis-plugin-social-tools",
+  "version": "0.1.0",
+  "description": "Host-neutral tool bridge for Codex, PingClaw Desk, and other Cordis hosts",
+  "type": "module",
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": { ".": { "types": "./lib/index.d.ts", "default": "./lib/index.js" }, "./package.json": "./package.json" },
+  "files": ["lib", "README.md", "LICENSE"],
+  "scripts": { "build": "tsup src/index.ts --format esm --dts --clean --out-dir lib", "typecheck": "tsc --noEmit -p tsconfig.json" },
+  "keywords": ["cordis", "codex", "agent-tools", "pingclaw", "plugin"],
+  "repository": { "type": "git", "url": "git+https://github.com/enginefuture/cordis-social.git", "directory": "packages/tools" },
+  "homepage": "https://github.com/enginefuture/cordis-social#readme",
+  "bugs": "https://github.com/enginefuture/cordis-social/issues",
+  "publishConfig": { "access": "public" },
+  "cordis": { "services": { "required": ["social"] }, "description": { "en": "Host-neutral social tools", "zh": "宿主无关的社交工具桥" } },
+  "peerDependencies": { "cordis": "4.0.0-rc.9" },
+  "dependencies": { "cordis-plugin-social": "workspace:^", "zod": "^4.1.11" },
+  "devDependencies": { "cordis": "4.0.0-rc.9", "tsup": "^8.5.0", "typescript": "^5.9.2" }
+}

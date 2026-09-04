@@ -1,0 +1,24 @@
+name: Platform adapter request
+description: Propose support for another social platform
+title: "[platform] "
+labels: [enhancement, platform]
+body:
+  - type: input
+    id: platform
+    attributes:
+      label: Platform
+    validations:
+      required: true
+  - type: textarea
+    id: capabilities
+    attributes:
+      label: Authorized daily operations needed
+    validations:
+      required: true
+  - type: checkboxes
+    id: policy
+    attributes:
+      label: Acceptable use
+      options:
+        - label: This request does not involve spam, credential attacks, CAPTCHA bypass, fake engagement, or unauthorized automation.
+          required: true

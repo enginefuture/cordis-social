@@ -1,0 +1,17 @@
+- name: cordis-plugin-social
+  config:
+    defaultAccountId: default
+    draftTtlMs: 600000
+
+- name: cordis-plugin-social-browser-local
+  config:
+    browser: auto
+    profiles:
+      x:default: x-default
+
+- name: cordis-plugin-social-x
+  config:
+    accountId: default
+    artifactsDir: social-artifacts/x
+
+- name: cordis-plugin-social-tools

@@ -1,0 +1,22 @@
+{
+  "name": "cordis-plugin-social-profilefleet",
+  "version": "0.1.0",
+  "description": "ProfileFleet-backed browser service for Cordis social plugins",
+  "type": "module",
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": { ".": { "types": "./lib/index.d.ts", "default": "./lib/index.js" }, "./package.json": "./package.json" },
+  "files": ["lib", "README.md", "LICENSE"],
+  "scripts": { "build": "tsup src/index.ts --format esm --dts --clean --out-dir lib --external profilefleet/client --external profilefleet/playwright", "typecheck": "tsc --noEmit -p tsconfig.json" },
+  "keywords": ["cordis", "profilefleet", "browser-cluster", "plugin"],
+  "repository": { "type": "git", "url": "git+https://github.com/enginefuture/cordis-social.git", "directory": "packages/profilefleet" },
+  "homepage": "https://github.com/enginefuture/cordis-social#readme",
+  "bugs": "https://github.com/enginefuture/cordis-social/issues",
+  "publishConfig": { "access": "public" },
+  "cordis": { "description": { "en": "ProfileFleet browser provider", "zh": "ProfileFleet 浏览器会话提供器" } },
+  "peerDependencies": { "cordis": "4.0.0-rc.9", "playwright-core": ">=1.62.1", "profilefleet": ">=0.1.0" },
+  "dependencies": { "cordis-plugin-social-browser": "workspace:^", "zod": "^4.1.11" },
+  "devDependencies": { "cordis": "4.0.0-rc.9", "playwright-core": "^1.62.1", "profilefleet": "https://github.com/enginefuture/profilefleet/releases/download/v0.1.0/profilefleet-0.1.0.tgz", "tsup": "^8.5.0", "typescript": "^5.9.2" }
+}
