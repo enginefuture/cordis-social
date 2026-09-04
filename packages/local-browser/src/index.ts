@@ -87,6 +87,29 @@ interface ActiveBrowser {
   release(): Promise<void>;
 }
 
+async function waitForChildExit(child: ChildProcess, timeoutMs: number): Promise<boolean> {
+  if (child.exitCode !== null || child.signalCode !== null) return true;
+  return new Promise((resolveExit) => {
+    const finish = (exited: boolean) => {
+      clearTimeout(timer);
+      child.removeListener("exit", onExit);
+      resolveExit(exited);
+    };
+    const onExit = () => finish(true);
+    const timer = setTimeout(() => finish(false), timeoutMs);
+    timer.unref();
+    child.once("exit", onExit);
+  });
+}
+
+async function closePagesWithoutBeforeUnload(browser: Browser): Promise<void> {
+  const pages = browser.contexts().flatMap((context) => context.pages());
+  await Promise.allSettled(pages.map(async (page) => {
+    page.on("dialog", (dialog) => void dialog.dismiss().catch(() => undefined));
+    await page.close({ runBeforeUnload: false });
+  }));
+}
+
 async function portOpen(port: number): Promise<boolean> {
   return new Promise((result) => {
     const socket = createConnection({ host: "127.0.0.1", port });
@@ -173,10 +196,19 @@ export class LocalBrowserService extends SocialBrowserService<LocalBrowserServic
         released = true;
         if (timer) clearTimeout(timer);
         input.signal?.removeEventListener("abort", abort);
+        // X installs a beforeunload guard while a composer exists. Closing the
+        // browser process first leaves a native "Leave site?" dialog and marks
+        // the profile as crashed. Close tabs without unload handlers, request a
+        // graceful browser shutdown, and wait for the owned process before the
+        // profile or CDP port can be acquired again.
+        await closePagesWithoutBeforeUnload(browser);
+        await browser.close().catch(() => undefined);
+        if (!await waitForChildExit(child, 2_000)) {
+          try { child.kill("SIGTERM"); } catch { /* already stopped */ }
+          await waitForChildExit(child, 2_000);
+        }
         this.active.delete(profileId);
         this.reservedPorts.delete(port);
-        await browser.close().catch(() => undefined);
-        try { child.kill("SIGTERM"); } catch { /* already stopped */ }
       };
       const abort = () => void release();
       input.signal?.addEventListener("abort", abort, { once: true });

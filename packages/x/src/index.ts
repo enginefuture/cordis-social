@@ -313,7 +313,15 @@ class XAdapter implements SocialPlatformAdapter {
         preview,
         publish: async (publishSignal): Promise<PublishedPost> => {
           publishSignal?.throwIfAborted();
-          await button.click();
+          if (!await button.isEnabled().catch(() => false)
+            || await button.getAttribute("aria-disabled") === "true") {
+            throw new Error("The verified X post button is no longer enabled");
+          }
+          // X keeps a transparent full-screen mask above reply composers.
+          // The verified button is active, but Playwright pointer hit-testing
+          // sees the mask. Dispatch the element's native click instead of
+          // forcing a screen coordinate through an unrelated overlay.
+          await button.evaluate((element: HTMLButtonElement) => element.click());
           await Promise.race([
             auth.page.locator('[data-testid="toast"]').waitFor({ state: "visible", timeout: 30_000 }),
             auth.page.waitForURL((url) => !url.pathname.includes("/compose/post"), { timeout: 30_000 }),
