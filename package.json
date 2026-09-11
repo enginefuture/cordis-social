@@ -22,7 +22,7 @@
     "@modelcontextprotocol/sdk": "1.30.0",
     "@types/node": "^24.3.1",
     "cordis": "4.0.0-rc.9",
-    "playwright-core": "^1.62.1",
+    "playwright-core": "^1.63.0",
     "profilefleet": "https://github.com/enginefuture/profilefleet/releases/download/v0.1.0/profilefleet-0.1.0.tgz",
     "tsup": "^8.5.0",
     "tsx": "^4.20.5",
