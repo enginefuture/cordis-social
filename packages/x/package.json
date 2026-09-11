@@ -18,5 +18,5 @@
   "cordis": { "services": { "required": ["social", "socialBrowser"] }, "description": { "en": "X daily operation adapter", "zh": "X 日常操作适配器" } },
   "peerDependencies": { "cordis": "4.0.0-rc.9", "playwright-core": ">=1.62.1" },
   "dependencies": { "cordis-plugin-social": "workspace:^", "cordis-plugin-social-browser": "workspace:^", "zod": "^4.1.11" },
-  "devDependencies": { "cordis": "4.0.0-rc.9", "playwright-core": "^1.62.1", "tsup": "^8.5.0", "typescript": "^5.9.2" }
+  "devDependencies": { "cordis": "4.0.0-rc.9", "playwright-core": "^1.63.0", "tsup": "^8.5.0", "typescript": "^5.9.2" }
 }

@@ -18,5 +18,5 @@
   "cordis": { "description": { "en": "ProfileFleet browser provider", "zh": "ProfileFleet 浏览器会话提供器" } },
   "peerDependencies": { "cordis": "4.0.0-rc.9", "playwright-core": ">=1.62.1", "profilefleet": ">=0.1.0" },
   "dependencies": { "cordis-plugin-social-browser": "workspace:^", "zod": "^4.1.11" },
-  "devDependencies": { "cordis": "4.0.0-rc.9", "playwright-core": "^1.62.1", "profilefleet": "https://github.com/enginefuture/profilefleet/releases/download/v0.1.0/profilefleet-0.1.0.tgz", "tsup": "^8.5.0", "typescript": "^5.9.2" }
+  "devDependencies": { "cordis": "4.0.0-rc.9", "playwright-core": "^1.63.0", "profilefleet": "https://github.com/enginefuture/profilefleet/releases/download/v0.1.0/profilefleet-0.1.0.tgz", "tsup": "^8.5.0", "typescript": "^5.9.2" }
 }
