@@ -16,5 +16,5 @@
   "bugs": "https://github.com/enginefuture/cordis-social/issues",
   "publishConfig": { "access": "public" },
   "peerDependencies": { "cordis": "4.0.0-rc.9", "playwright-core": ">=1.62.1" },
-  "devDependencies": { "cordis": "4.0.0-rc.9", "playwright-core": "^1.62.1", "tsup": "^8.5.0", "typescript": "^5.9.2" }
+  "devDependencies": { "cordis": "4.0.0-rc.9", "playwright-core": "^1.63.0", "tsup": "^8.5.0", "typescript": "^5.9.2" }
 }

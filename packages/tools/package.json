@@ -17,6 +17,6 @@
   "publishConfig": { "access": "public" },
   "cordis": { "services": { "required": ["social"] }, "description": { "en": "Host-neutral social tools", "zh": "宿主无关的社交工具桥" } },
   "peerDependencies": { "cordis": "4.0.0-rc.9" },
-  "dependencies": { "cordis-plugin-social": "workspace:^", "zod": "^4.1.11" },
+  "dependencies": { "cordis-plugin-social": "workspace:^", "zod": "^4.6.5" },
   "devDependencies": { "cordis": "4.0.0-rc.9", "tsup": "^8.5.0", "typescript": "^5.9.2" }
 }
