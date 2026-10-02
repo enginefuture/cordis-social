@@ -17,6 +17,6 @@
   "publishConfig": { "access": "public" },
   "cordis": { "description": { "en": "Social operation service", "zh": "社交平台操作服务" } },
   "peerDependencies": { "cordis": "4.0.0-rc.9" },
-  "dependencies": { "zod": "^4.1.11" },
+  "dependencies": { "zod": "^4.6.5" },
   "devDependencies": { "cordis": "4.0.0-rc.9", "tsup": "^8.5.0", "typescript": "^5.9.2" }
 }
